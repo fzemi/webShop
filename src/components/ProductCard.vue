@@ -18,7 +18,6 @@
 
 <script>
 import { reactive, computed, toRefs } from "vue";
-
 export default {
   name: "ProductCard",
   setup() {
@@ -27,20 +26,16 @@ export default {
         price: 100,
         totalPrice: computed(() => state.price * state.quantity)
       });
-
       function makeOrder() {
         state.quantity++;
       }
-
       function incrementQuantity() {
           state.quantity++;
       }
-
       function decrementQuantity() {
           if(state.quantity > 0)
             state.quantity--;
       }
-
       return {makeOrder, incrementQuantity, decrementQuantity, ...toRefs(state)};
   }
 };

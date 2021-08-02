@@ -1,3 +1,4 @@
+  
 <template>
   <div id="app">
     <NavBar/>
@@ -47,4 +48,3 @@ export default {
   gap: 2rem;
 }
 </style>
-
