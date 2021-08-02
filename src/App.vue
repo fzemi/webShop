@@ -1,34 +1,50 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">LOGO</a>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
+  <div id="app">
+    <NavBar/>
+    <div class="main-page">
+      <div class="shopping-cart">
+        <ShoppingCart/>
+      </div>
+      <div class="products">
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+      </div>
     </div>
   </div>
-</nav>
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue'
+import ProductCard from './components/ProductCard.vue'
+import ShoppingCart from './components/ShoppingCart.vue'
 
 export default {
   name: 'App',
   components: {
+    NavBar,
+    ProductCard,
+    ShoppingCart
   }
-}
+};
 </script>
 
-<style>
-
+<style scoped>
+.main-page {
+  display: flex;
+}
+.shopping-cart {
+  margin: 2rem;
+}
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem;
+  gap: 2rem;
+}
 </style>
 
