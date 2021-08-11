@@ -6,7 +6,8 @@
       <p class="card-text">Cart ( 3 )</p>   <!-- zmienić 3 na zmienną wartość  -->
     </div>
     <div class="card-body border-2 border-rounded border-dash" id="cart-size">
-      <ul class="list-group list-group-flush">
+      <ul class="list-group list-group-flush" v-if="cartQuantity">
+        <li class="list-group-item" v-for="product in products" :key="product.id">{{cartQuantity}}x {{product.name}}</li>
         <li class="list-group-item">An item</li>
         <li class="list-group-item">A second item</li>
         <li class="list-group-item">A third item</li>
@@ -16,8 +17,21 @@
 </template>
 
 <script>
+import products from '../data/products.js'
+
 export default {
   name: "ShoppingCart",
+  data () {
+        return {
+          products: products,
+          product: null
+        }
+  },
+  computed: {
+    cartQuantity() {
+      return this.$store.getters.cartQuantity(this.product)
+    }
+  }
 };
 </script>
 

@@ -6,19 +6,63 @@ function updateLocalStorage(cart) {
 
 export default createStore({
     state: {
-        cart: []
+        mainCart: [],
+        tempCart: []
     },
     mutations: {
         incrementQuantity(state, product) {
-            let item = state.cart.find(i => i.id === product.id)
+            let item = state.tempCart.find(i => i.id === product.id)
+
+            if(item)
+                item.quantity++
+            else
+                state.tempCart.push({...product, quantity: 1})
+
+            updateLocalStorage(state.tempCart)
+        },
+        decrementQuantity(state, product) {
+            let item = state.tempCart.find(i => i.id === product.id)
 
             if(item) {
-                item.quantity++
-            } else {
-                state.cart.push({...product, quantity: 1})
+                if(item.quantity > 1)
+                    item.quantity--
+                else
+                    state.tempCart = state.tempCart.filter(i => i.id !== product.id)
             }
 
-            updateLocalStorage(state.cart)
+            updateLocalStorage(state.tempCart)
+        },
+        makeOrder(state, product) {
+            let item = state.tempCart.find(i => i.id === product.id)
+
+            if(item) {
+                console.log(state.tempCart)
+                state.mainCart = state.tempCart.slice()
+                console.log(state.mainCart)
+                state.tempCart = []
+            }
+
+            updateLocalStorage(state.mainCart)
+            
+        }
+
+    },
+    getters: {
+        productQuantity: state => product => {
+            let item = state.tempCart.find(i => i.id === product.id)
+
+            if(item)
+                return item.quantity
+            else
+                return 0
+        },
+        cartQuantity: state => product => {
+            let item = state.mainCart.find(i => i.id === product.id)
+
+            if(item)
+                return item.quantity
+            else
+                return 0
         }
     },
     actions: {

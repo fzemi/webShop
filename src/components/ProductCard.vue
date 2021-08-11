@@ -9,7 +9,7 @@
       </p>
       <div class="center">
         <a @click="decrementQuantity" class="btn btn-danger btn-no-radius btn-add-remove rounded-start">-</a>
-        <a @click="makeOrder" class="btn btn-primary btn-no-radius">Quantity: {{product.quantity}}</a>
+        <a @click="makeOrder" class="btn btn-primary btn-no-radius">Quantity: {{productQuantity}}</a>
         <a @click="incrementQuantity" class="btn btn-success btn-no-radius btn-add-remove rounded-end">+</a>
       </div>
     </div>
@@ -24,10 +24,18 @@ export default {
   methods: {
     incrementQuantity() {
       this.$store.commit('incrementQuantity', this.product)
+    },
+    decrementQuantity() {
+      this.$store.commit('decrementQuantity', this.product)
+    },
+    makeOrder() {
+      this.$store.commit('makeOrder', this.product)
     }
   },
   computed: {
-
+    productQuantity() {
+      return this.$store.getters.productQuantity(this.product)
+    }
   }
 };
 </script>
