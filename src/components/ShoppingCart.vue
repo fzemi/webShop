@@ -17,16 +17,10 @@
 </template>
 
 <script>
-import products from '../data/products.js'
 
 export default {
   name: "ShoppingCart",
-  data () {
-        return {
-          products: products,
-          product: null
-        }
-  },
+  props: ['product'],
   computed: {
     cartQuantity() {
       return this.$store.getters.cartQuantity(this.product)

@@ -37,7 +37,7 @@ export default createStore({
 
             if(item) {
                 console.log(state.tempCart)
-                state.mainCart = state.tempCart.slice()
+                state.mainCart.push(...state.tempCart)
                 console.log(state.mainCart)
                 state.tempCart = []
             }
