@@ -3,14 +3,11 @@
     <div class="card-body">
       <h5 class="card-title">Contact</h5>
       <p class="card-text">Some information about contact.</p>
-      <p class="card-text">Cart ( 3 )</p>   <!-- zmienić 3 na zmienną wartość  -->
+      <p class="card-text">Cart ( {{cartQuantity}} )</p>
     </div>
     <div class="card-body border-2 border-rounded border-dash" id="cart-size">
-      <ul class="list-group list-group-flush" v-if="cartQuantity">
-        <li class="list-group-item" v-for="product in products" :key="product.id">{{cartQuantity}}x {{product.name}}</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" v-for="product in products" :key="product.id">{{productQuantityInCart}}x {{product.name}}</li>
       </ul>
     </div>
   </div>
@@ -20,16 +17,20 @@
 
 export default {
   name: "ShoppingCart",
-  props: ['product'],
+  props: {products: Array},
   computed: {
     cartQuantity() {
-      return this.$store.getters.cartQuantity(this.product)
+      return this.$store.getters.cartQuantity
+    },
+    productQuantityInCart() {
+      return this.$store.getters.productQuantityInCart(this.products) //naprawić!!
     }
   }
 };
 </script>
 
 <style scoped>
+
 #cart-size {
   margin: 0px 8px 8px 8px;
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="main-page">
       <div class="shopping-cart">
-        <ShoppingCart :product="product"/>
+        <ShoppingCart :products="products"/>
       </div>
       <div class="products">
         <ProductCard v-for="product in products" :key="product.id" :product="product" v-on:maximize="maximize($event)"/>
@@ -18,9 +18,9 @@ export default {
     name: 'Shop',
     components: {
         ProductCard,
-        ShoppingCart
+        ShoppingCart,
     },
-    data () {
+    data: () => {
         return {
           products: products,
           product: null
@@ -36,6 +36,9 @@ export default {
 </script>
 
 <style scoped>
+#cart-size {
+  margin: 0px 8px 8px 8px;
+}
 .main-page {
   display: flex;
 }

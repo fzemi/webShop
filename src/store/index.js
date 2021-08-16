@@ -33,19 +33,25 @@ export default createStore({
             updateLocalStorage(state.tempCart)
         },
         makeOrder(state, product) {
-            let item = state.tempCart.find(i => i.id === product.id)
+            let item = state.mainCart.find(i => i.id === product.id)
+            let tempItem = state.tempCart.find(i => i.id === product.id)
+
+            if(state.tempCart.length === 0)
+                return
 
             if(item) {
-                console.log(state.tempCart)
-                state.mainCart.push(...state.tempCart)
+                //console.log(state.tempCart)
+                item.quantity += tempItem.quantity
                 console.log(state.mainCart)
+                state.tempCart = []
+            }
+            else {
+                state.mainCart.push({...product, quantity: tempItem.quantity})
                 state.tempCart = []
             }
 
             updateLocalStorage(state.mainCart)
-            
         }
-
     },
     getters: {
         productQuantity: state => product => {
@@ -56,14 +62,17 @@ export default createStore({
             else
                 return 0
         },
-        cartQuantity: state => product => {
+        cartQuantity: state => {
+            return state.mainCart.length
+        },
+        productQuantityInCart: state => product => {
             let item = state.mainCart.find(i => i.id === product.id)
 
             if(item)
                 return item.quantity
             else
                 return 0
-        }
+        },
     },
     actions: {
 
