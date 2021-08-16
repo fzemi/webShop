@@ -7,7 +7,10 @@
     </div>
     <div class="card-body border-2 border-rounded border-dash" id="cart-size">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" v-for="product in products" :key="product.id">{{productQuantityInCart}}x {{product.name}}</li>
+        <li class="list-group-item text-center" v-if="cartQuantity === 0">Empty!</li>
+        <li class="list-group-item" v-else v-for="product in products" :key="product.id">
+            <span v-if="productQuantityInCart(product) !== 0">{{productQuantityInCart(product)}}x {{product.name}}</span>
+        </li>
       </ul>
     </div>
   </div>
@@ -17,13 +20,15 @@
 
 export default {
   name: "ShoppingCart",
-  props: {products: Array},
+  props: ['products', 'product'],
   computed: {
     cartQuantity() {
       return this.$store.getters.cartQuantity
-    },
-    productQuantityInCart() {
-      return this.$store.getters.productQuantityInCart(this.products) //naprawić!!
+    }
+  },
+  methods: {
+    productQuantityInCart(product) {
+      return this.$store.getters.productQuantityInCart(product)
     }
   }
 };

@@ -36,9 +36,6 @@ export default {
 </script>
 
 <style scoped>
-#cart-size {
-  margin: 0px 8px 8px 8px;
-}
 .main-page {
   display: flex;
 }
