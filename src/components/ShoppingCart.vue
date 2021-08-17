@@ -8,7 +8,7 @@
     <div class="card-body border-2 border-rounded border-dash" id="cart-size">
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-center" v-if="cartQuantity === 0">Cart is empty</li>
-        <li id="clearButtonApear" class="list-group-item" v-else v-for="product in products" :key="product.id">
+        <li id="clearButtonApear" class="list-group-item" v-else v-for="product in visibleCartElements" :key="product.id">
             <span v-if="productQuantityInCart(product) !== 0">
               <span>{{productQuantityInCart(product)}}x {{product.name}}</span>
               <img class="removeButton" src="../assets/x_icon.png" @click="removeFromCart(product)">
@@ -31,6 +31,9 @@ export default {
     },
     moneyToPay() {
       return this.$store.getters.moneyToPay
+    },
+    visibleCartElements() {
+      return this.$store.getters.visibleCartElements
     }
   },
   methods: {

@@ -40,9 +40,7 @@ export default createStore({
                 return
 
             if(item) {
-                //console.log(state.tempCart)
                 item.quantity += tempItem.quantity
-                console.log(state.mainCart)
                 state.tempCart = state.tempCart.filter(i => i.id !== product.id)
             }
             else {
@@ -92,6 +90,17 @@ export default createStore({
                 money += state.mainCart[i].price * state.mainCart[i].quantity
             }
             return money
+        },
+        visibleCartElements: state => {
+            const result = state.mainCart.map((product) => {
+                return {
+                    id: product.id,
+                    price: product.price,
+                    name: product.name,
+                    quantity: product.quantity
+                }
+            })
+            return result
         }
     },
     actions: {
