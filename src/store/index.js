@@ -43,11 +43,23 @@ export default createStore({
                 //console.log(state.tempCart)
                 item.quantity += tempItem.quantity
                 console.log(state.mainCart)
-                state.tempCart = []
+                state.tempCart = state.tempCart.filter(i => i.id !== product.id)
             }
             else {
                 state.mainCart.push({...product, quantity: tempItem.quantity})
-                state.tempCart = []
+                state.tempCart = state.tempCart.filter(i => i.id !== product.id)
+            }
+
+            updateLocalStorage(state.mainCart)
+        },
+        removeFromCart(state, product) {
+            let item = state.mainCart.find(i => i.id === product.id)
+
+            if(item) {
+                if(item.quantity > 1)
+                    item.quantity--
+                else
+                    state.mainCart = state.mainCart.filter(i => i.id !== product.id)
             }
 
             updateLocalStorage(state.mainCart)
@@ -73,6 +85,14 @@ export default createStore({
             else
                 return 0
         },
+        moneyToPay: state => {
+            let money = 0
+
+            for(let i = 0; i < state.mainCart.length; i++) {
+                money += state.mainCart[i].price * state.mainCart[i].quantity
+            }
+            return money
+        }
     },
     actions: {
 

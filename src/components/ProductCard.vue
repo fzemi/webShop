@@ -2,14 +2,21 @@
   <div class="card" style="width: 18rem">
     <img src="../assets/logo.png" class="card-img-top" @click="$emit('maximize', product)"/>
     <div class="card-body">
-      <h5 class="card-title">{{product.name}}</h5>
+      <div class="position-relative">
+        <h5 class="card-title position-absolute">{{product.name}}</h5>
+        <h6 class="card-title end">Price: {{product.price}}$</h6>
+      </div>
       <p class="card-text">
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </p>
       <div class="center">
         <a @click="decrementQuantity" class="btn btn-danger btn-no-radius btn-add-remove rounded-start">-</a>
-        <a @click="makeOrder" class="btn btn-primary btn-no-radius">Quantity: {{productQuantity}}</a>
+        <a @click="makeOrder" class="btn btn-primary btn-no-radius" @mouseover="toAdd = true" @mouseleave="toAdd = false">
+          <span v-if="toAdd && productQuantity !== 0" @click="addedToCart = true">Add to cart?</span>
+          <span v-else-if="addedToCart" @mouseleave="addedToCart = false">Added</span>
+          <span v-else-if="!addedToCart">Quantity: {{productQuantity}}</span>
+        </a>
         <a @click="incrementQuantity" class="btn btn-success btn-no-radius btn-add-remove rounded-end">+</a>
       </div>
     </div>
@@ -21,6 +28,12 @@
 export default {
   name: "ProductCard",
   props: ['product'],
+  data: () => {
+    return {
+      toAdd: false,
+      addedToCart: false
+    }
+  },
   methods: {
     incrementQuantity() {
       this.$store.commit('incrementQuantity', this.product)
@@ -44,6 +57,11 @@ export default {
 .center {
     display: flex;
     justify-content: center;
+}
+.end {
+  text-align: end;
+  margin-right: 5px;
+  padding-top: 4px;
 }
 .btn-no-radius {
     border-radius: 0px;

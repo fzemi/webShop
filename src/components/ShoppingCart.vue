@@ -7,12 +7,16 @@
     </div>
     <div class="card-body border-2 border-rounded border-dash" id="cart-size">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item text-center" v-if="cartQuantity === 0">Empty!</li>
-        <li class="list-group-item" v-else v-for="product in products" :key="product.id">
-            <span v-if="productQuantityInCart(product) !== 0">{{productQuantityInCart(product)}}x {{product.name}}</span>
+        <li class="list-group-item text-center" v-if="cartQuantity === 0">Cart is empty</li>
+        <li id="clearButtonApear" class="list-group-item" v-else v-for="product in products" :key="product.id">
+            <span v-if="productQuantityInCart(product) !== 0">
+              <span>{{productQuantityInCart(product)}}x {{product.name}}</span>
+              <img class="removeButton" src="../assets/x_icon.png" @click="removeFromCart(product)">
+            </span>
         </li>
       </ul>
     </div>
+    <h4 class="card-body" v-if="cartQuantity !== 0"><span class="badge bg-secondary">Amount to pay: {{moneyToPay}}$</span></h4>
   </div>
 </template>
 
@@ -24,12 +28,18 @@ export default {
   computed: {
     cartQuantity() {
       return this.$store.getters.cartQuantity
+    },
+    moneyToPay() {
+      return this.$store.getters.moneyToPay
     }
   },
   methods: {
     productQuantityInCart(product) {
       return this.$store.getters.productQuantityInCart(product)
-    }
+    },
+    removeFromCart(product) {
+      this.$store.commit('removeFromCart', product)
+    },
   }
 };
 </script>
@@ -40,11 +50,32 @@ export default {
   margin: 0px 8px 8px 8px;
 }
 
+.removeButton {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  display: none;
+}
+
+#clearButtonApear:hover img{
+  display: grid;
+  top: 10px;
+}
+
 .border-dash {
     border-style: dashed;
 }
 
+.btn-danger {
+  text-align: center;
+}
+
 .border-rounded {
     border-radius: 10px;
+}
+
+.card {
+  position: sticky;
+  top: 20px;
 }
 </style>
