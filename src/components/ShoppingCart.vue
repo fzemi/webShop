@@ -11,12 +11,15 @@
         <li id="clearButtonApear" class="list-group-item" v-else v-for="product in visibleCartElements" :key="product.id">
             <span v-if="productQuantityInCart(product) !== 0">
               <span>{{productQuantityInCart(product)}}x {{product.name}}</span>
-              <img class="removeButton" src="../assets/x_icon.png" @click="removeFromCart(product)">
+              <img class="removeButton" src="../assets/x_icon.png" @click="removeFromCart(product)"/>
             </span>
         </li>
       </ul>
     </div>
-    <h4 class="card-body" v-if="cartQuantity !== 0"><span class="badge bg-secondary">Amount to pay: {{moneyToPay}}$</span></h4>
+    <div class="bottom" v-if="cartQuantity !== 0">
+      <h4 class="card-body"><span class="badge bg-secondary">Amount to pay: {{moneyToPay}}$</span></h4>
+      <img class="clearCart" src="../assets/bin.png" @click="clearCart"/>
+    </div>
   </div>
 </template>
 
@@ -34,6 +37,9 @@ export default {
     },
     visibleCartElements() {
       return this.$store.getters.visibleCartElements
+    },
+    clearCart() {
+      return this.$store.getters.clearCart
     }
   },
   methods: {
@@ -63,6 +69,19 @@ export default {
 #clearButtonApear:hover img{
   display: grid;
   top: 10px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+}
+
+.clearCart {
+  height: 24px;
+  width: 24px;
+  margin-right: 15px;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
 .border-dash {

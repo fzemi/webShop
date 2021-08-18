@@ -101,6 +101,10 @@ export default createStore({
                 }
             })
             return result
+        },
+        clearCart: state => {
+            state.mainCart = []
+            updateLocalStorage(state.mainCart)
         }
     },
     actions: {

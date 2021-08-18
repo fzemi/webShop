@@ -12,9 +12,9 @@
       </p>
       <div class="center">
         <a @click="decrementQuantity" class="btn btn-danger btn-no-radius btn-add-remove rounded-start">-</a>
-        <a @click="makeOrder" class="btn btn-primary btn-no-radius" @mouseover="toAdd = true" @mouseleave="toAdd = false">
+        <a @click="makeOrder" class="btn btn-primary btn-no-radius" style="width: 120px" @mouseover="toAdd = true" @mouseleave="toAdd = addedToCart = false">
           <span v-if="toAdd && productQuantity !== 0" @click="addedToCart = true">Add to cart?</span>
-          <span v-else-if="addedToCart" @mouseleave="addedToCart = false">Added</span>
+          <span v-else-if="addedToCart">Added</span>
           <span v-else-if="!addedToCart">Quantity: {{productQuantity}}</span>
         </a>
         <a @click="incrementQuantity" class="btn btn-success btn-no-radius btn-add-remove rounded-end">+</a>

@@ -1,7 +1,7 @@
 <template>
     <div class="main-page">
       <div class="shopping-cart">
-        <ShoppingCart :products="products"/>
+        <ShoppingCart :product="product" :products="products"/>
       </div>
       <div class="products">
         <ProductCard v-for="product in products" :key="product.id" :product="product" v-on:maximize="maximize($event)"/>
