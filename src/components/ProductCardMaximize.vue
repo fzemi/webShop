@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 50rem; height: 59rem">
-    <img src="../assets/logo.png" title="Click to minimize" class="card-img-top open-card" @click="$emit('closeMaximize')"/>
+    <img :src="'../assets/' + product.image" title="Click to minimize" class="card-img-top open-card img-size" @click="$emit('closeMaximize')"/>
     <div class="card-body">
       <div class="position-relative">
         <h5 class="card-title position-absolute">{{product.name}}</h5>
@@ -74,5 +74,8 @@ export default {
 }
 .open-card {
   cursor: pointer;
+}
+.img-size {
+  height: 800px;
 }
 </style>

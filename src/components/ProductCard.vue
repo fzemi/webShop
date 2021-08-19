@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 18rem">
-    <img src="../assets/logo.png" class="card-img-top open-card" title="Click to maximize" @click="$emit('maximize', product)"/>
+    <img :src="'../assets/' + product.image" class="card-img-top open-card img-size" title="Click to maximize" @click="$emit('maximize', product)"/>
     <div class="card-body">
       <div class="position-relative">
         <h5 class="card-title position-absolute">{{product.name}}</h5>
@@ -48,7 +48,8 @@ export default {
   computed: {
     productQuantity() {
       return this.$store.getters.productQuantity(this.product)
-    }
+    },
+    
   }
 };
 </script>
@@ -74,5 +75,8 @@ export default {
 }
 .open-card {
   cursor: pointer;
+}
+.img-size {
+  height: 300px;
 }
 </style>

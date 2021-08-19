@@ -3,7 +3,7 @@
       <div class="shopping-cart">
         <ShoppingCart :product="product" :products="products"/>
       </div>
-      <div class="products" v-if="onMaximize">
+      <div class="product-maximize" v-if="onMaximize">
         <ProductCardMaximize v-for="product in productOnMaximize" :key="product.id" :product="product" v-on:closeMaximize="closeMaximize()"/>
       </div>
       <div class="products" v-else>
@@ -58,5 +58,12 @@ export default {
   flex-wrap: wrap;
   padding: 2rem;
   gap: 2rem;
+}
+.product-maximize {
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-right: 10rem;
 }
 </style>
