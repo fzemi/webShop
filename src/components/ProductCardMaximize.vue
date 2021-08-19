@@ -1,12 +1,12 @@
 <template>
-  <div class="card" style="width: 18rem">
-    <img src="../assets/logo.png" class="card-img-top open-card" title="Click to maximize" @click="$emit('maximize', product)"/>
+  <div class="card" style="width: 50rem; height: 59rem">
+    <img src="../assets/logo.png" title="Click to minimize" class="card-img-top open-card" @click="$emit('closeMaximize')"/>
     <div class="card-body">
       <div class="position-relative">
         <h5 class="card-title position-absolute">{{product.name}}</h5>
         <h6 class="card-title end">Price: {{product.price}}$</h6>
       </div>
-      <p class="card-text text-truncate">
+      <p class="card-text">
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </p>
@@ -24,34 +24,34 @@
 </template>
 
 <script>
-
 export default {
-  name: "ProductCard",
-  props: ['product'],
-  data: () => {
-    return {
-      toAdd: false,
-      addedToCart: false
-    }
-  },
-  methods: {
-    incrementQuantity() {
-      this.$store.commit('incrementQuantity', this.product)
+    name: "ProductCardMaximize",
+    props: ['product'],
+    data: () => {
+        return {
+            toAdd: false,
+            addedToCart: false
+        }
     },
-    decrementQuantity() {
-      this.$store.commit('decrementQuantity', this.product)
+    methods: {
+        incrementQuantity() {
+            this.$store.commit('incrementQuantity', this.product)
+        },
+        decrementQuantity() {
+            this.$store.commit('decrementQuantity', this.product)
+        },
+        makeOrder() {
+            this.$store.commit('makeOrder', this.product)
+        }
     },
-    makeOrder() {
-      this.$store.commit('makeOrder', this.product)
+    computed: {
+        productQuantity() {
+            return this.$store.getters.productQuantity(this.product)
+        }
     }
-  },
-  computed: {
-    productQuantity() {
-      return this.$store.getters.productQuantity(this.product)
-    }
-  }
-};
+}
 </script>
+
 
 <style scoped>
 .center {
